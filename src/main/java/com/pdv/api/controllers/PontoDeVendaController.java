@@ -4,68 +4,53 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pdv.api.documents.Cliente;
+import com.pdv.api.documents.Localizacao;
+import com.pdv.api.documents.PontoDeVenda;
 import com.pdv.api.responses.Response;
-import com.pdv.api.services.ClienteService;
+import com.pdv.api.services.PontoDeVendaService;
 
 @RestController
 @RequestMapping(path = "/api/pdvs")
 public class PontoDeVendaController {
 	
 	@Autowired
-	private ClienteService clienteService;
+	private PontoDeVendaService pontoDeVenda;
 	
 	@GetMapping
-	public ResponseEntity<Response<List<Cliente>>> listarTodos() {
-		return ResponseEntity.ok(new Response<List<Cliente>>(this.clienteService.listarTodos()));
+	public ResponseEntity<Response<List<PontoDeVenda>>> listAll() {
+		return ResponseEntity.ok(new Response<List<PontoDeVenda>>(this.pontoDeVenda.listAll()));
 	}
 	
 	@GetMapping(path = "/{id}")
-	public ResponseEntity<Response<Optional<Cliente>>> listarPorId(@PathVariable(name = "id") String id) {
-		return ResponseEntity.ok(new Response<Optional<Cliente>>(this.clienteService.listarPorId(id)));
+	public ResponseEntity<Response<Optional<PontoDeVenda>>> getPDVById(@PathVariable(name = "id") String id) {
+		return ResponseEntity.ok(new Response<Optional<PontoDeVenda>>(this.pontoDeVenda.getPDVById(id)));
+	}
+	
+	@GetMapping(path="/searchPDV")
+	public ResponseEntity<Response<Optional<PontoDeVenda>>> searchPDV(@RequestBody Localizacao localizacao, BindingResult result) {
+		return ResponseEntity.ok(new Response<Optional<PontoDeVenda>>(this.pontoDeVenda.searchPDV(localizacao)));
 	}
 	
 	@PostMapping
-	public ResponseEntity<Response<Cliente>> cadastrar(@Valid @RequestBody Cliente cliente, BindingResult result) {
+	public ResponseEntity<Response<PontoDeVenda>> createPDV(@RequestBody PontoDeVenda pdv, BindingResult result) {
 		if (result.hasErrors()) {
 			List<String> erros = new ArrayList<String>();
 			result.getAllErrors().forEach(erro -> erros.add(erro.getDefaultMessage()));
-			return ResponseEntity.badRequest().body(new Response<Cliente>(erros));
+			return ResponseEntity.badRequest().body(new Response<PontoDeVenda>(erros));
 		}
 		
-		return ResponseEntity.ok(new Response<Cliente>(this.clienteService.cadastrar(cliente)));
+		return ResponseEntity.ok(new Response<PontoDeVenda>(this.pontoDeVenda.createPDV(pdv)));
 	}
 	
-	@PutMapping(path = "/{id}")
-	public ResponseEntity<Response<Cliente>> atualizar(@PathVariable(name = "id") String id, @Valid @RequestBody Cliente cliente, BindingResult result) {
-		if (result.hasErrors()) {
-			List<String> erros = new ArrayList<String>();
-			result.getAllErrors().forEach(erro -> erros.add(erro.getDefaultMessage()));
-			return ResponseEntity.badRequest().body(new Response<Cliente>(erros));
-		}
-		
-		cliente.setId(id);
-		return ResponseEntity.ok(new Response<Cliente>(this.clienteService.atualizar(cliente)));
-	}
-	
-	@DeleteMapping(path = "/{id}")
-	public ResponseEntity<Response<Integer>> remover(@PathVariable(name = "id") String id) {
-		this.clienteService.remover(id);
-		return ResponseEntity.ok(new Response<Integer>(1));
-	}
-
 }
