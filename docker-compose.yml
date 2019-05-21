@@ -1,0 +1,28 @@
+version: "3"
+services:
+        membrane:
+                build: ../images/membrane
+                privileged: true
+                restart: always
+        fachada-woa:
+                build: ../images/fachada-woa
+                hostname: arneiroz
+                domainname: claro.com.br
+                privileged: true
+                restart: always
+        woa:
+                build: ../images/woa
+                privileged: true
+                restart: always
+#        wa-core:
+#                build: ../images/wa-core
+#                hostname: brux1204
+#                domainname: claro.com.br
+#                privileged: true
+#                restart: always
+volumes:
+        log-woa:
+        log-fachada:
+networks:
+        default:
+                driver: bridge

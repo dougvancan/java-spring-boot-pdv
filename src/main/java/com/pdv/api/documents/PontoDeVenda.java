@@ -3,6 +3,7 @@ package com.pdv.api.documents;
 import javax.validation.constraints.NotEmpty;
 
 import org.geojson.GeoJsonObject;
+import org.hibernate.validator.constraints.UniqueElements;
 import org.hibernate.validator.constraints.br.CNPJ;
 import org.springframework.data.mongodb.core.mapping.Document;
 

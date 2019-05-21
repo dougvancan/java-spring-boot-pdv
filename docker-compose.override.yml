@@ -1,0 +1,129 @@
+version: "3"
+services:
+        membrane:
+                volumes:
+                        - c:/Ambiente/dev-mplay/membrane/conf/proxies.xml:/opt/membrane/conf/proxies.xml
+                ports:
+                        #CONSOLE
+                        - 5000:5000
+                        #ESB
+                        - 5001:5001
+                        #WOA
+                        - 5002:5002
+                        #FACHADA WOA WT
+                        - 5003:5003
+                        #FACHADA WOA CRIVO
+                        - 5004:5004
+                extra_hosts:
+                        - BRUX0483:200.169.113.127
+                        - guanabara06:200.169.112.191
+                        - guanabara06.claro.com.br:200.169.112.191
+                        - brux0804:200.169.114.142
+                        - RJUX0177:200.169.114.18
+                        - BRUX0338:200.169.120.71
+                        - BRUX0692:200.169.114.197
+                        - BRUX0693:200.169.114.122
+                        - BRUX0746:200.169.114.186
+                        - BRUX0702:200.169.114.123
+                        - BRUX0432:200.169.114.140
+                        - BRUX0736:200.169.114.182
+                        - BRUX0299:200.169.120.67
+                        - BRUX0329:200.169.120.115
+                        - BRUX0548:200.169.114.49
+                        - MAZOMBA:200.169.114.112
+                        - arenapolis:10.18.80.212
+                        - RJUX0062:200.169.112.197
+                        - PASSOSMAIA:10.18.80.168
+                        - BRUX0802:200.169.114.141
+                        - UMIRIM:10.18.81.222
+        fachada-woa:
+                volumes:
+                        - c:/Ambiente/dev-mplay/fachada-woa/home:/opt/web/oracle/middleware/user_projects/domains/woa_sysmap
+                        - c:/Ambiente/dev-mplay/fachada-woa/DevServer09:/opt/oracle/DevServer09
+                        - log-fachada:/opt/oracle/DevServer09/log
+                ports:
+                        - 6001:6001
+                        - 7109:7109
+                extra_hosts:
+                        - BRUX0483:200.169.113.127
+                        - guanabara06:200.169.112.191
+                        - guanabara06.claro.com.br:200.169.112.191
+                        - brux0804:200.169.114.142
+                        - RJUX0177:200.169.114.18
+                        - BRUX0338:200.169.120.71
+                        - BRUX0692:200.169.114.197
+                        - BRUX0693:200.169.114.122
+                        - BRUX0746:200.169.114.186
+                        - BRUX0702:200.169.114.123
+                        - BRUX0432:200.169.114.140
+                        - BRUX0736:200.169.114.182
+                        - BRUX0299:200.169.120.67
+                        - BRUX0329:200.169.120.115
+                        - BRUX0548:200.169.114.49
+                        - MAZOMBA:200.169.114.112
+                        - arenapolis:10.18.80.212
+                        - RJUX0062:200.169.112.197
+                        - PASSOSMAIA:10.18.80.168
+                        - BRUX0802:200.169.114.141
+                        - UMIRIM:10.18.81.222
+        woa:
+                volumes:
+                        - c:/Ambiente/dev-mplay/woa/home:/opt/web/wls1036/user_projects/domains/woa_sysmap
+                        - c:/Ambiente/dev-mplay/woa/DevServer06:/opt/oracle/DevServer06
+                        - c:/Ambiente/dev-mplay/woa/MockServer:/opt/oracle/MockServer
+                        - log-woa:/opt/oracle/DevServer06/log
+                ports:
+                        - 7001:7001
+                        - 7106:7106
+                extra_hosts:
+                        - BRUX0483:200.169.113.127
+                        - guanabara06:200.169.112.191
+                        - guanabara06.claro.com.br:200.169.112.191
+                        - brux0804:200.169.114.142
+                        - RJUX0177:200.169.114.18
+                        - BRUX0338:200.169.120.71
+                        - BRUX0692:200.169.114.197
+                        - BRUX0693:200.169.114.122
+                        - BRUX0746:200.169.114.186
+                        - BRUX0702:200.169.114.123
+                        - BRUX0432:200.169.114.140
+                        - BRUX0736:200.169.114.182
+                        - BRUX0299:200.169.120.67
+                        - BRUX0329:200.169.120.115
+                        - BRUX0548:200.169.114.49
+                        - MAZOMBA:200.169.114.112
+                        - arenapolis:10.18.80.212
+                        - RJUX0062:200.169.112.197
+                        - PASSOSMAIA:10.18.80.168
+                        - BRUX0802:200.169.114.141
+                        - UMIRIM:10.18.81.222
+#        wa-core:
+#                volumes:
+#                        - /sysmap/ambientes/dev-mplay/wa-core/home:/opt/web/oracle/middleware/user_projects/domains/woa_sysmap
+#                        - /sysmap/ambientes/dev-mplay/wa-core/DevServer09:/opt/oracle/DevServer09
+#                ports:
+#                        - 5001:6001
+#                        - 5109:6109
+#                extra_hosts:
+#                        - BRUX0483:200.169.113.127
+#                        - guanabara06:200.169.112.191
+#                        - guanabara06.claro.com.br:200.169.112.191
+#                        - brux0804:200.169.114.142
+#                        - RJUX0177:200.169.114.18
+#                        - BRUX0338:200.169.120.71
+#                        - BRUX0692:200.169.114.197
+#                        - BRUX0693:200.169.114.122
+#                        - BRUX0746:200.169.114.186
+#                        - BRUX0702:200.169.114.123
+#                        - BRUX0432:200.169.114.140
+#                        - BRUX0736:200.169.114.182
+#                        - BRUX0299:200.169.120.67
+#                        - BRUX0548:200.169.114.49
+#                        - MAZOMBA:200.169.114.112
+#                        - arenapolis:10.18.80.212
+#                        - RJUX0062:200.169.112.197
+#                        - PASSOSMAIA:10.18.80.168
+#                        - BRUX0802:200.169.114.141
+volumes:
+        log-woa:
+        log-fachada:
