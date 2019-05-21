@@ -29,7 +29,7 @@ public class PontoDeVendaServiceImpl implements PontoDeVendaService {
 	
 	@Override
 	public Optional<PontoDeVenda> searchPDV(Localizacao lozalizacao) {
-		return this.pontoDeVendaRespository.findById(String.valueOf(lozalizacao.getLat()));
+		return this.pontoDeVendaRespository.searchPDV(lozalizacao.getLat(), lozalizacao.getLng());
 	}
 	
 	@Override

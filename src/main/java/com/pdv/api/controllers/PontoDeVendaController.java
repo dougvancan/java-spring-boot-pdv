@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -38,12 +39,12 @@ public class PontoDeVendaController {
 	}
 	
 	@GetMapping(path="/searchPDV")
-	public ResponseEntity<Response<Optional<PontoDeVenda>>> searchPDV(@RequestBody Localizacao localizacao, BindingResult result) {
+	public ResponseEntity<Response<Optional<PontoDeVenda>>> searchPDV(@Valid @RequestBody Localizacao localizacao, BindingResult result) {
 		return ResponseEntity.ok(new Response<Optional<PontoDeVenda>>(this.pontoDeVenda.searchPDV(localizacao)));
 	}
 	
 	@PostMapping
-	public ResponseEntity<Response<PontoDeVenda>> createPDV(@RequestBody PontoDeVenda pdv, BindingResult result) {
+	public ResponseEntity<Response<PontoDeVenda>> createPDV(@Valid @RequestBody PontoDeVenda pdv, BindingResult result) {
 		if (result.hasErrors()) {
 			List<String> erros = new ArrayList<String>();
 			result.getAllErrors().forEach(erro -> erros.add(erro.getDefaultMessage()));

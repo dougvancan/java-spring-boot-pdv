@@ -1,6 +1,9 @@
 package com.pdv.api.documents;
 
+import javax.validation.constraints.NotEmpty;
+
 import org.geojson.GeoJsonObject;
+import org.hibernate.validator.constraints.br.CNPJ;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /*
@@ -26,9 +29,14 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document
 public class PontoDeVenda {
 
+	@NotEmpty(message="id não pode ser vazio")
 	private String id;
+	@NotEmpty(message="tradingName não pode ser vazio")
 	private String tradingName;
+	@NotEmpty(message="ownerName não pode ser vazio")
 	private String ownerName;
+	@NotEmpty(message="CNPJ não pode ser vazio")
+	@CNPJ(message="CNPJ inválido")
 	private String document;
     private GeoJsonObject coverageArea;
 	private GeoJsonObject address;
